@@ -1,6 +1,11 @@
 # How to setup Passwordless Authentication
 
 ## EC2 Instances
+##Ensure Private Key is added to SSH agent
+
+eval "$(ssh-agent -s)"  ----->Status of SSH agent.
+ssh-add <path/to/keyfile>  ------> adding key to SSH path.
+
 
 ### Using Public Key
 
