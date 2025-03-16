@@ -4,6 +4,7 @@
 ##Ensure Private Key is added to SSH agent
 
 eval "$(ssh-agent -s)"  ----->Status of SSH agent.
+
 ssh-add <path/to/keyfile>  ------> adding key to SSH path.
 
 
