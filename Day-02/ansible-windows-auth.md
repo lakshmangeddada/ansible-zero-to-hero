@@ -3,6 +3,8 @@
 Control-Node:
 1. Install python3.9
 
+yum install python
+
 2. Install ansible
 
 3. Install required modules.
