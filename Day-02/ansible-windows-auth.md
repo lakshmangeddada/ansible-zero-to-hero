@@ -1,16 +1,17 @@
 ##Setting up a communication setup between ansible control node and windows managed node.
 
 Control-Node:
-1. Install python3.9
+Step1. Install python3.9
 
----yum install python---
+command: yum install python3.9
 
 2. Install ansible
+command: yum install ansible
 
 3. Install required modules.
-    pip3 install "pywinrm>=0.3.0"
-    pip3 install "pywinrm[credssp]"
-    pip3 install "pywinrm[kerberos]"
+    pip3 install "pywinrm>=0.3.0"/n
+    pip3 install "pywinrm[credssp]"/n
+    pip3 install "pywinrm[kerberos]"/n
     pip3 install "pywinrm[ntlm]"
 
 Managed Node: (windows)
