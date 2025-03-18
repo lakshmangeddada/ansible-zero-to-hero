@@ -96,6 +96,8 @@ then try to run the below command. It will fix the issue.
     echo 'export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES' >> ~/.zshrc
     source ~/.zshrc
 
+again test the communication. It will success now.
+
     ansible -i inventory.ini windows -m win_ping
  
 
