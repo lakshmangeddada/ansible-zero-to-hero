@@ -1,0 +1,54 @@
+#Install required packages to install softwares.
+#Check if chrome is already installed.
+#If not installed, download the chrome package.
+#Install the chrome package.
+#Check if chrome is installed successfully.
+#If installed successfully, print the message.
+#If not installed successfully, print the message.
+---
+- name: Install Google Chrome if not installed
+  hosts: windows
+  gather_facts: no
+  tasks:
+  
+    - name: Check if Chrome is installed
+      win_shell: |
+        if (Test-Path "C:\Program Files\Google\Chrome\Application\chrome.exe") { 
+            Write-Host "Chrome is installed" 
+        } else { 
+            exit 1 
+        }
+      register: chrome_check
+      ignore_errors: yes
+
+    - name: Install Chocolatey (if not installed)
+      win_shell: |
+        if (-Not (Test-Path "C:\ProgramData\chocolatey\choco.exe")) {
+          Set-ExecutionPolicy Bypass -Scope Process -Force;
+          [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;
+          iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+        }
+      args:
+        executable: powershell.exe
+      when: chrome_check.rc != 0
+
+    - name: Install Google Chrome using Chocolatey
+      win_chocolatey:
+        name: googlechrome
+        state: present
+      when: chrome_check.rc != 0
+
+    - name: Verify Chrome Installation
+      win_shell: |
+        if (Test-Path "C:\Program Files\Google\Chrome\Application\chrome.exe") { 
+            Write-Host "Chrome is installed successfully" 
+        } else { 
+            Write-Host "Installation failed"
+        }
+      register: chrome_status
+      when: chrome_check.rc != 0
+
+    - debug:
+        msg: "{{ chrome_status.stdout }}"
+    
+
