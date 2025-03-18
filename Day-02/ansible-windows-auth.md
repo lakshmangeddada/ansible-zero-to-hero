@@ -85,4 +85,17 @@ command:
     
     ansible -i inventory.ini windows -m win_ping
 
+If you are facing error like below:
+
+objc[1309]: +[NSMutableString initialize] may have been in progress in another thread when fork() was called.
+objc[1309]: +[NSMutableString initialize] may have been in progress in another thread when fork() was called. We cannot safely call it or ignore it in the fork() child process. Crashing instead. Set a breakpoint on objc_initializeAfterForkError to debug.
+ERROR! A worker was found in a dead state
+
+then try to run the below command. It will fix the issue.
+
+    echo 'export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES' >> ~/.zshrc
+    source ~/.zshrc
+
+    ansible -i inventory.ini windows -m win_ping
+ 
 
